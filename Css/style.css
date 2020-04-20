@@ -1,0 +1,93 @@
+/* Create two equal columns that floats next to each other */
+.column {
+    float: left;
+    width: 50%;
+    padding: 10px 0;
+}
+.column.index1{
+    background-color:#aaa;
+}
+.column.index2{
+    background-color:#bbb;
+}
+.column.index3{
+    background-color:#ccc;
+}
+.column.index0{
+    background-color:#ddd;
+}
+/* Clear floats after the columns */
+.row:after {
+    content: "";
+    display: block;
+    clear: both;
+}
+.column-head,
+.column-body{
+    margin: 0 10px;
+}
+
+.column-head{
+    height:30px;
+    text-align: center;
+    font-size: 20px;
+    border-bottom: 1px solid gray;
+}
+
+.rfid-table{
+    width: 100%;
+    border: 1px solid gray;
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+.rfid-table th,
+.rfid-table td{
+    line-height: 25px;
+    padding: 3px 10px;
+    border: 1px solid gray;
+    text-align: center;
+}
+.rfid-table tbody tr td:nth-child(1),
+.rfid-table tbody tr td:nth-child(2){
+    width: 30%;
+}
+.rfid-table .istrue{
+    color: green;
+}
+.rfid-table .isfalse{
+    color: red;
+}
+
+.binded{
+    margin: 10px 0;
+}
+.binded .rfid-table tbody tr td:nth-child(1),
+.binded .rfid-table tbody tr td:nth-child(4),
+.binded .rfid-table tbody tr td:nth-child(5){
+    width: 15%;
+}
+.binded .rfid-table thead tr{
+    background-color: #aaa;
+}
+.binded .rfid-table tbody tr:nth-child(odd){
+    background-color: #ddd;
+}
+.binded .rfid-table tbody tr:nth-child(even){
+    background-color: #ccc;
+}
+
+
+/* .column-body > div > label{
+    float: left;
+    height:26px;
+    width: 33%;
+    text-align: center;
+    font-size: 20px;
+}
+.column-body ui li{
+    font-size: 16px;
+    margin: 10px;
+    margin-left: 20px;
+    margin-bottom: 0px;
+} */
+
