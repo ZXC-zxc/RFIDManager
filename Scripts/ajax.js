@@ -1,8 +1,8 @@
-var serverUrl = "http://192.168.17.14:4000/api/v1";
+var serverUrl = "http://127.0.0.1:4000/api/v1";
 
 function ajaxGetAllEquipments()
 {
-    var str;
+    var json = [];
     $.ajax({
         type: "GET",
         url: serverUrl + "/equipments",
@@ -10,31 +10,37 @@ function ajaxGetAllEquipments()
         async: false,
         crossDomain: true,
         success: function(result){
-            str = result;
+            if(200 == result.code)
+            {
+                json = result.data;
+            }
         },
         error: function(err){
-            str = err;
+            json = err;
         }
     });
-    return str;
+    return json;
 }
 
 function ajaxGetEquStatus(sn)
 {
-    var str;
+    var json = [];
     $.ajax({
         type: "GET",
         url: serverUrl + "/equipments/"+sn+"/status",
         dataType: 'json',
         async: false,
         success: function(result){
-            str = "123";
+            if(200 == result.code)
+            {
+                json = result.data;
+            }
         },
-        error: function(data){
-            str = "456";
+        error: function(err){
+            json = err;
         }
     });
-    return str;
+    return json;
 }
 
 function ajaxAddEqu(sn, reader_ipport, equ_ipport, vms_no)
@@ -92,6 +98,23 @@ function ajaxUpdateEqu(sn, reader_ipport, equ_ipport, vms_no)
         type: "POST",
         url: serverUrl + "/equipments/"+sn+"/update",
         data: JSON.stringify(postData),
+        dataType: 'json',
+        async: false,
+        success: function(result){
+            console.log(result);
+        },
+        error: function(err){
+            console.log(err);
+        }
+    });
+}
+
+function ajaxDeleteEqu(sn)
+{
+    //POST http://:server:api/equipments/1/delete
+    $.ajax({
+        type: "POST",
+        url: serverUrl + "/equipments/"+sn+"/delete",
         dataType: 'json',
         async: false,
         success: function(result){

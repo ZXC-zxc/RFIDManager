@@ -3,32 +3,30 @@ function renderInit(){
     $( "#newReaderIP" ).autocomplete();
     $( "#newEquIP" ).autocomplete();
     $( "#newVMSNo" ).autocomplete();
-    var tabs = $( "#tabs" ).tabs();
+    tabs = $( "#tabs" ).tabs();
 
     $("#addEquipmentBtn").click(function(){
         addBind();
-        renderList();
-
-
-        // //根据有几个柜子动态添加页面(包扩title和内容)
-        // var sn = $("#newSN").val();
-        // $( "#tabs" ).html($( "#tabs" ).html()+ newEquipmentTab("tabs-" + sn));
-        // tabs.find( ".ui-tabs-nav" ).append( "<li id='tabNav-" + sn +"'><a href='#tabs-"+ sn + "'>货柜" + sn + "</a></li>" );
-        // tabs.tabs( "refresh" );
-        // selectTab("tabs-" + sn);
-        
-        // tabs.tabs( "refresh" );
     });
 }
 function renderList(){
+    $(".binded tbody").html("");
+    $( "#tabs li" ).remove();
+    $( "#tabs .rfid-panels" ).remove();
+
     var ListJson = ajaxGetAllEquipments();
-    for(var i=0;i<ListJson.data.length;i++){
-        var readerIP = ListJson.data[i].reader_ip + ":" + ListJson.data[i].reader_port.toString();
-        var equIP = ListJson.data[i].equ_ip + ":" + ListJson.data[i].equ_port.toString();
-        listBindedEqu(ListJson.data[i].equ_sn,readerIP,equIP,ListJson.data[i].equ_no)
+    EqumentList = ListJson;
+    for(var i=0;i<ListJson.length;i++){
+        var readerIP = ListJson[i].reader_ip + ":" + ListJson[i].reader_port.toString();
+        var equIP = ListJson[i].equ_ip + ":" + ListJson[i].equ_port.toString();
+        listBindedEqu(ListJson[i].equ_sn,readerIP,equIP,ListJson[i].equ_no);
+        renderTab(ListJson[i].equ_sn);
     }
 }
 
-function renderTab(){
-
+function renderTab(sn){
+    $( "#tabs" ).html($( "#tabs" ).html()+ newEquipmentTab(sn));
+    tabs.find( ".ui-tabs-nav" ).append( "<li id='tabNav-" + sn +"'><a href='#tabs-"+ sn + "'>货柜" + sn + "</a></li>" );
+    tabs.tabs( "refresh" );
+    selectTab("tabs-" + sn);
 }

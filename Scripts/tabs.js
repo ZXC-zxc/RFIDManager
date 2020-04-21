@@ -1,85 +1,5 @@
 //绘制基础界面
-
-
-
-var AntennaList = [
-    {
-      "equ_no": 2,
-      "antenna_no": 1,
-      "enabled": false,
-      "active": false,
-      "label_num": 0,
-      "data": "",
-      "desp": ""
-    },
-    {
-      "equ_no": 2,
-      "antenna_no": 2,
-      "enabled": false,
-      "active": false,
-      "label_num": 0,
-      "data": "",
-      "desp": ""
-    },
-    {
-      "equ_no": 2,
-      "antenna_no": 3,
-      "enabled": false,
-      "active": false,
-      "label_num": 0,
-      "data": "",
-      "desp": ""
-    },
-    {
-      "equ_no": 2,
-      "antenna_no": 4,
-      "enabled": false,
-      "active": false,
-      "label_num": 0,
-      "data": "",
-      "desp": ""
-    },
-    {
-      "equ_no": 2,
-      "antenna_no": 5,
-      "enabled": false,
-      "active": false,
-      "label_num": 0,
-      "data": "",
-      "desp": ""
-    },
-    {
-      "equ_no": 2,
-      "antenna_no": 6,
-      "enabled": false,
-      "active": false,
-      "label_num": 0,
-      "data": "",
-      "desp": ""
-    },
-    {
-      "equ_no": 2,
-      "antenna_no": 7,
-      "enabled": false,
-      "active": false,
-      "label_num": 0,
-      "data": "",
-      "desp": ""
-    },
-    {
-      "equ_no": 2,
-      "antenna_no": 8,
-      "enabled": false,
-      "active": false,
-      "label_num": 0,
-      "data": "",
-      "desp": ""
-    }
-  ];
-
-
 function newAntenna(num, active, enabled, count){
-
     var html = '';
     if(1 == num%2){
         html += '<div class="row">';
@@ -115,67 +35,18 @@ function newAntenna(num, active, enabled, count){
     }
     return html;
 }
-function newEquipmentTab(tabid){
-    //newBinditem('12', '192.168.10.41', '192.168.10.42', '345');
-    
+function newEquipmentTab(sn){
+    var tabid = "tabs-" + sn;
+    var equStatus = ajaxGetEquStatus(sn);
 
     var html = '';
-
-    html += '<div id="'+tabid+'">';
-    for(var i=1; i<=8; i++){
-        html += newAntenna(i, true, false, i*2);
+    html += '<div class="rfid-panels" id="'+tabid+'">';
+    for(var i=0; i<equStatus.length; i++){
+        html += newAntenna(equStatus[i].antenna_no, equStatus[i].active, equStatus[i].enabled, equStatus[i].label_num);
     }
     html += '</div>';
     
-    /*
-    html += '<div id="'+tabid+'">';
-    html +=     '<div class="row">';
-    html +=         '<div class="column" style="background-color:#aaa;">';
-    html +=             '<h2>货架 1</h2>';
-    html +=             '<p>Some text..</p>';
-    html +=         '</div>';
-    html +=         '<div class="column" style="background-color:#bbb;">';
-    html +=             '<h2>货架 2</h2>';
-    html +=             '<p>Some text..</p>';
-    html +=         '</div>';
-    html +=     '</div>';
-
-    html +=     '<div class="row">';
-    html +=         '<div class="column" style="background-color:#ccc;">';
-    html +=             '<h2>货架 3</h2>';
-    html +=             '<p>Some text..</p>';
-    html +=         '</div>';
-    html +=         '<div class="column" style="background-color:#ddd;">';
-    html +=             '<h2>货架 4</h2>';
-    html +=             '<p>Some text..</p>';
-    html +=         '</div>';
-    html +=     '</div>';
-
-    html +=     '<div class="row">';
-    html +=         '<div class="column" style="background-color:#aaa;">';
-    html +=             '<h2>货架 5</h2>';
-    html +=             '<p>Some text..</p>';
-    html +=         '</div>';
-    html +=         '<div class="column" style="background-color:#bbb;">';
-    html +=             '<h2>货架 6</h2>';
-    html +=             '<p>Some text..</p>';
-    html +=         '</div>';
-    html +=     '</div>';
-
-    html +=     '<div class="row">';
-    html +=         '<div class="column" style="background-color:#ccc;">';
-    html +=             '<h2>货架 7</h2>';
-    html +=             '<p>Some text..</p>';
-    html +=         '</div>';
-    html +=         '<div class="column" style="background-color:#ddd;">';
-    html +=             '<h2>货架 8</h2>';
-    html +=         '<p>Some text..</p>';
-    html +=     '</div>';
-    html += '</div>';
-    */
-
     return  html;
-
 }
 
 function selectTab(tabID){
@@ -188,8 +59,4 @@ function selectTab(tabID){
             $( "#tabs" ).tabs( "option", "active", i );
         }
     }
-}
-
-//根据传过来的数据动态的更新界面
-function updateEquipmentTab(tabobject,data){
 }
